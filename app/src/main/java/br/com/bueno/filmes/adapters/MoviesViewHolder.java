@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import br.com.bueno.filmes.R;
 import br.com.bueno.filmes.contracts.OnItemClickListener;
 import br.com.bueno.filmes.models.Movie;
@@ -35,8 +37,10 @@ public class MoviesViewHolder extends RecyclerView.ViewHolder implements View.On
     public void onBindViewHolder(Movie movie) {
         mMovie = movie;
 
+        String urlImagem = mMovie.getImageUrl();
         mTextViewTitle.setText(mMovie.getTitle());
-        mImageMovie.setImageResource(mMovie.getImageResource());
+        Glide.with(mView.getContext())
+                .load(urlImagem).into(mImageMovie);
 
         mView.setOnClickListener(this);
     }

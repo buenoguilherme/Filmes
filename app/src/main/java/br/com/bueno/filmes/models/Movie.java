@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Movie implements Serializable {
 
+    private static final String URI_IMAGE = "https://image.tmdb.org/t/p/w500";
+
     @SerializedName("title")
     private String title;
 
@@ -26,7 +28,13 @@ public class Movie implements Serializable {
     @SerializedName("backdrop_path")
     private String imagePath;
 
-
+    public String getImageUrl() {
+        if (imagePath != null) {
+            return URI_IMAGE.concat(imagePath);
+        } else {
+            return "";
+        }
+    }
 
     public String getTitle() {
         return title;
