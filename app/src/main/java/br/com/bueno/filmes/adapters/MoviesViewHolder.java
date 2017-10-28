@@ -1,6 +1,8 @@
 package br.com.bueno.filmes.adapters;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,24 +14,21 @@ import br.com.bueno.filmes.models.Movie;
  * Created by guibueno on 21/10/17.
  */
 
-public class MoviesViewHolder implements View.OnClickListener {
-    private View mView;
+public class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private View mView;
     private Movie mMovie;
     private OnItemClickListener mListener;
 
     private TextView mTextViewTitle;
-    private TextView mTextViewAverage;
-    private TextView mTextViewYear;
-    private TextView mTextViewCategory;
+    private ImageView mImageMovie;
 
     public MoviesViewHolder(View view, OnItemClickListener listener) {
+        super(view);
         mView = view;
         mListener = listener;
 
-        mTextViewTitle = (TextView) view.findViewById(R.id.text_view_title);
-        mTextViewAverage = (TextView) view.findViewById(R.id.text_view_average);
-        mTextViewYear = (TextView) view.findViewById(R.id.text_view_year);
-        mTextViewCategory = (TextView) view.findViewById(R.id.text_view_category);
+        mTextViewTitle = (TextView) view.findViewById(R.id.title_text_view);
+        mImageMovie = (ImageView) view.findViewById(R.id.image_movie);
 
     }
 
@@ -37,9 +36,7 @@ public class MoviesViewHolder implements View.OnClickListener {
         mMovie = movie;
 
         mTextViewTitle.setText(mMovie.getTitle());
-        mTextViewAverage.setText(String.valueOf(mMovie.getAverage()));
-        mTextViewYear.setText(String.valueOf(mMovie.getYear()));
-        mTextViewCategory.setText(mMovie.getCategory());
+        mImageMovie.setImageResource(mMovie.getImageResource());
 
         mView.setOnClickListener(this);
     }

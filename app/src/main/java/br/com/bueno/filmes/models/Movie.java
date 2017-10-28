@@ -8,19 +8,28 @@ import java.io.Serializable;
 
 public class Movie implements Serializable {
 
+    private int imageResource;
     private String title;
-    private double average;
+    private Double average;
     private int year;
     private String category;
+    private String summary;
 
-    public Movie() {
-    }
-
-    public Movie(String title, double average, int year, String category) {
+    public Movie(int imageResource, String title, Double average, int year, String category, String summary) {
+        this.imageResource = imageResource;
         this.title = title;
         this.average = average;
         this.year = year;
         this.category = category;
+        this.summary = summary;
+    }
+
+    public int getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(int imageResource) {
+        this.imageResource = imageResource;
     }
 
     public String getTitle() {

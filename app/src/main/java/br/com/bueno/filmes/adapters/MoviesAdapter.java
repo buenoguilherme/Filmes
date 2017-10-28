@@ -1,6 +1,7 @@
 package br.com.bueno.filmes.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,51 +18,36 @@ import br.com.bueno.filmes.models.Movie;
  * Created by guibueno on 21/10/17.
  */
 
-public class MoviesAdapter extends BaseAdapter {
+public class MoviesAdapter extends RecyclerView.Adapter<MoviesViewHolder> {
 
-    private LayoutInflater mInflater;
     private List<Movie> mMovies;
     private OnItemClickListener mListener;
 
-    public MoviesAdapter(Context context, List<Movie> movies, OnItemClickListener listener) {
-        mInflater = LayoutInflater.from(context);
-        mMovies = movies;
+    public MoviesAdapter(List<Movie> movieList, OnItemClickListener listener) {
+        mMovies = movieList;
         mListener = listener;
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        MoviesViewHolder moviesViewHolder;
-
-        if (view == null) {
-            view = mInflater.inflate(R.layout.movies_item, null);
-            moviesViewHolder = new MoviesViewHolder(view, mListener);
-            view.setTag(moviesViewHolder);
-        } else {
-            moviesViewHolder = (MoviesViewHolder) view.getTag();
-        }
-
-//        Movie movie = mMovies.get(position);
-//        moviesViewHolder.onBindViewHolder(movie);
-
-        moviesViewHolder.onBindViewHolder(getItem(position));
-
-        return view;
+    public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movies_item, parent, false);
+        return new MoviesViewHolder(view, mListener);
     }
 
     @Override
-    public Movie getItem(int position) {
+    public void onBindViewHolder(MoviesViewHolder holder, int position) {
         Movie movie = mMovies.get(position);
-        return movie;
+        holder.onBindViewHolder(movie);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mMovies != null ? mMovies.size() : 0;
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return super.getItemId(position);
     }
 
-    @Override
-    public int getCount() {
-        return mMovies.size();
-    }
 }
