@@ -1,6 +1,9 @@
 package br.com.bueno.filmes.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by guibueno on 21/10/17.
@@ -8,29 +11,22 @@ import java.io.Serializable;
 
 public class Movie implements Serializable {
 
-    private int imageResource;
+    @SerializedName("title")
     private String title;
+
+    @SerializedName("vote_average")
     private Double average;
-    private int year;
-    private String category;
-    private String summary;
 
-    public Movie(int imageResource, String title, Double average, int year, String category, String summary) {
-        this.imageResource = imageResource;
-        this.title = title;
-        this.average = average;
-        this.year = year;
-        this.category = category;
-        this.summary = summary;
-    }
+    @SerializedName("genre_ids")
+    private List<Integer> categories;
 
-    public int getImageResource() {
-        return imageResource;
-    }
+    @SerializedName("overview")
+    private String overview;
 
-    public void setImageResource(int imageResource) {
-        this.imageResource = imageResource;
-    }
+    @SerializedName("backdrop_path")
+    private String imagePath;
+
+
 
     public String getTitle() {
         return title;
@@ -40,27 +36,35 @@ public class Movie implements Serializable {
         this.title = title;
     }
 
-    public double getAverage() {
+    public Double getAverage() {
         return average;
     }
 
-    public void setAverage(double average) {
+    public void setAverage(Double average) {
         this.average = average;
     }
 
-    public int getYear() {
-        return year;
+    public List<Integer> getCategories() {
+        return categories;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setCategories(List<Integer> categories) {
+        this.categories = categories;
     }
 
-    public String getCategory() {
-        return category;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
