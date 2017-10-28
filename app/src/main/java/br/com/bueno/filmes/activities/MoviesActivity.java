@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -20,24 +21,28 @@ import br.com.bueno.filmes.models.Movie;
 import br.com.bueno.filmes.models.Results;
 import br.com.bueno.filmes.services.MovieService;
 
+import static android.view.View.GONE;
+
 public class MoviesActivity extends AppCompatActivity implements OnItemClickListener {
 
     private RecyclerView mRecyclerView;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
+        bindViews();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        bindViews();
     }
 
     private void bindViews() {
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.movies_recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
@@ -67,6 +72,13 @@ public class MoviesActivity extends AppCompatActivity implements OnItemClickList
     }
 
     class MovieAsyncTask extends AsyncTask<Void, Void, List<Movie>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(GONE);
+
+        }
 
         @Override
         protected List<Movie> doInBackground(Void... params) {
@@ -82,9 +94,16 @@ public class MoviesActivity extends AppCompatActivity implements OnItemClickList
         }
 
         @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
         protected void onPostExecute(List<Movie> movies) {
             super.onPostExecute(movies);
             updateList(movies);
+            mProgressBar.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 }
